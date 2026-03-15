@@ -33,7 +33,7 @@ version = "1.0-SNAPSHOT"
 
 dependencies {
     val server_version: String by project
-    implementation("com.hypixel.hytale:Server:${server_version}")
+    compileOnly("com.hypixel.hytale:Server:${server_version}")
 
     implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
