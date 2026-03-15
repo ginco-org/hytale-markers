@@ -1,0 +1,53 @@
+package gg.ginco.markers
+
+import com.hypixel.hytale.component.ComponentType
+import com.hypixel.hytale.component.ResourceType
+import com.hypixel.hytale.logger.HytaleLogger
+import com.hypixel.hytale.server.core.plugin.JavaPlugin
+import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore
+import com.hypixel.hytale.server.core.universe.world.storage.EntityStore
+import gg.ginco.markers.command.marker.MarkerCommand
+import gg.ginco.markers.component.SelectedMarkerComponent
+import gg.ginco.markers.component.VisibleMarkersComponent
+import gg.ginco.markers.resource.LocationMarkerResource
+import gg.ginco.markers.system.MarkerVisibilitySystem
+
+/**
+ * Registers the needed resources, components and systems for location markers to work.
+ * If [registerCommands], marker setup and edit commands will also be registered.
+ */
+class LocationMarkerSystemsRegistrar(plugin: JavaPlugin, registerCommands: Boolean) {
+
+    companion object {
+        private val LOGGER = HytaleLogger.forEnclosingClass()
+    }
+
+    val markerResourceType: ResourceType<ChunkStore, LocationMarkerResource> =
+        plugin.chunkStoreRegistry.registerResource(
+            LocationMarkerResource::class.java,
+            "LocationMarkers",
+            LocationMarkerResource.CODEC
+        ).also { LOGGER.atInfo().log("Registered resource LocationMarker.") }
+
+    val visibleMarkersComponentType: ComponentType<EntityStore, VisibleMarkersComponent> =
+        plugin.entityStoreRegistry.registerComponent(VisibleMarkersComponent::class.java)
+        { VisibleMarkersComponent() }.also {
+            LOGGER.atInfo().log("Registered visible markers component.")
+        }
+
+    val selectedMarkerComponentType: ComponentType<EntityStore, SelectedMarkerComponent> =
+        plugin.entityStoreRegistry.registerComponent(SelectedMarkerComponent::class.java)
+        { SelectedMarkerComponent() }.also {
+            LOGGER.atInfo().log("Registered selected marker component.")
+        }
+
+    init {
+        plugin.entityStoreRegistry.registerSystem(MarkerVisibilitySystem(this))
+        LOGGER.atInfo().log("Registered custom marker components.")
+
+        if (registerCommands) {
+            plugin.commandRegistry.registerCommand(MarkerCommand(this))
+            LOGGER.atInfo().log("Registered markers command.")
+        }
+    }
+}
