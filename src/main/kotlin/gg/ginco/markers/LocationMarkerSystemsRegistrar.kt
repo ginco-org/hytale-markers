@@ -22,6 +22,7 @@ class LocationMarkerSystemsRegistrar(plugin: JavaPlugin, registerCommands: Boole
         private val LOGGER = HytaleLogger.forEnclosingClass()
     }
 
+    /** The resource type that saves and loads world markers. */
     val markerResourceType: ResourceType<ChunkStore, LocationMarkerResource> =
         plugin.chunkStoreRegistry.registerResource(
             LocationMarkerResource::class.java,
@@ -29,12 +30,14 @@ class LocationMarkerSystemsRegistrar(plugin: JavaPlugin, registerCommands: Boole
             LocationMarkerResource.CODEC
         ).also { LOGGER.atInfo().log("Registered resource LocationMarker.") }
 
+    /** Component added onto players to make markers in the world visible. */
     val visibleMarkersComponentType: ComponentType<EntityStore, VisibleMarkersComponent> =
         plugin.entityStoreRegistry.registerComponent(VisibleMarkersComponent::class.java)
         { VisibleMarkersComponent() }.also {
             LOGGER.atInfo().log("Registered visible markers component.")
         }
 
+    /** Component containing which markers has been selected by an entity. */
     val selectedMarkerComponentType: ComponentType<EntityStore, SelectedMarkerComponent> =
         plugin.entityStoreRegistry.registerComponent(SelectedMarkerComponent::class.java)
         { SelectedMarkerComponent() }.also {
@@ -42,6 +45,7 @@ class LocationMarkerSystemsRegistrar(plugin: JavaPlugin, registerCommands: Boole
         }
 
     init {
+        // Runs the logic for showing/hiding markers to players.
         plugin.entityStoreRegistry.registerSystem(MarkerVisibilitySystem(this))
         LOGGER.atInfo().log("Registered custom marker components.")
 
