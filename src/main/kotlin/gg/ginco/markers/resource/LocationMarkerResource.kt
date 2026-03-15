@@ -4,7 +4,6 @@ import com.hypixel.hytale.codec.KeyedCodec
 import com.hypixel.hytale.codec.builder.BuilderCodec
 import com.hypixel.hytale.component.Resource
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore
-import gg.ginco.markers.resource.LocationMarkerResource.Companion.toConcurrentMarkerMap
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 
@@ -35,6 +34,9 @@ class LocationMarkerResource(initialMarkers: Collection<LocationMarker> = emptyL
 
     /** Returns all available markers in this world. */
     fun getMarkers(): Collection<LocationMarker> = markers.values
+
+    /** Returns all markers of type [markerType]. */
+    fun getMarkers(markerType: String): Collection<LocationMarker> = markers.values.filter { it.markerType == markerType }
 
     /** Adds [marker] to this world. */
     fun addMarker(marker: LocationMarker) {
