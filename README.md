@@ -1,4 +1,6 @@
 # hytale-markers
+![Maven Central Version](https://img.shields.io/maven-central/v/gg.ginco/hytale-markers)
+
 Adds a general-purpose location storage to Hytale worlds for plugin development.
 
 They are used to define game data in the world, from player and entity spawnpoints to any other localized object.
