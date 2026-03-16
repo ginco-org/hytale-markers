@@ -27,7 +27,7 @@ class MarkerEditorMenu(player: PlayerRef, marker: LocationMarker) :
         events: UIEventBuilder,
         store: Store<EntityStore>
     ) {
-        commands.append("JellyParty/MarkerEditor.ui")
+        commands.append("Markers/MarkerEditor.ui")
 
         currentMarker.markerId?.let { commands.set("#MarkerId.Value", it) }
         currentMarker.markerType?.let { commands.set("#MarkerType.Value", it) }

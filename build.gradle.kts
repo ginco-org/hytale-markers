@@ -64,12 +64,11 @@ dependencies {
     val server_version: String by project
     compileOnly("com.hypixel.hytale:Server:${server_version}")
 
-    implementation(kotlin("stdlib"))
-    implementation(kotlin("reflect"))
+    api(kotlin("stdlib"))
 
     implementation("dev.jonrapp:hytale-reactiveui:1.0")
 
-    implementation("gg.ginco:hytale-codec-annotations:1.0.7")
+    compileOnly("gg.ginco:hytale-codec-annotations:1.0.7")
     implementation("gg.ginco:hytale-codec-runtime:1.0.7")
     ksp("gg.ginco:hytale-codec-processor:1.0.7")
 }

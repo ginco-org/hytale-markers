@@ -45,11 +45,11 @@ class LocationMarkerSystemsRegistrar(plugin: JavaPlugin, registerCommands: Boole
         }
 
     init {
-        // Runs the logic for showing/hiding markers to players.
-        plugin.entityStoreRegistry.registerSystem(MarkerVisibilitySystem(this))
-        LOGGER.atInfo().log("Registered custom marker components.")
-
         if (registerCommands) {
+            // Runs the logic for showing/hiding markers to players.
+            plugin.entityStoreRegistry.registerSystem(MarkerVisibilitySystem(this))
+            LOGGER.atInfo().log("Registered custom marker components.")
+
             plugin.commandRegistry.registerCommand(MarkerCommand(this))
             LOGGER.atInfo().log("Registered markers command.")
         }

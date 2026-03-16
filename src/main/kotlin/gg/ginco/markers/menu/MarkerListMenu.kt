@@ -24,7 +24,7 @@ class MarkerListMenu(
         events: UIEventBuilder,
         store: Store<EntityStore>
     ) {
-        commands.append("JellyParty/MarkerList.ui")
+        commands.append("Markers/MarkerList.ui")
 
         val world = playerRef.worldUuid?.let { Universe.get().getWorld(it) } ?: return
 

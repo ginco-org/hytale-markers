@@ -1,0 +1,83 @@
+$C = "../Common.ui";
+
+Group #Content {
+  LayoutMode: Top;
+  Background: (Color: #223552);
+  Anchor: (Width: 650, Bottom: 20);
+  FlexWeight: 0;
+  Padding: (Vertical: 20);
+
+  Group #TopGroup {
+    LayoutMode: Left;
+    Anchor: (Width: 600, Left: 25, Right: 25);
+    Group #Type {
+      LayoutMode: Top;
+      Anchor: (Width: 0, Left: 0, Right: 0);
+      FlexWeight: 1;
+      Label #MarkerTypeLabel {
+        FlexWeight: 0;
+        Text: "MARKER TYPE";
+        Style: (TextColor: $C.@ColorDefaultLabel, FontSize: 10, RenderBold: true, RenderUppercase: true);
+      }
+      Label #MarkerType {
+        FlexWeight: 0;
+        Text: "MarkerType";
+        Style: (VerticalAlignment: Center, FontSize: 16);
+      }
+    }
+    Group #Separator {
+      FlexWeight: 2;
+    }
+    Group #Location {
+      LayoutMode: Top;
+      Anchor: (Left: 0, Right: 0);
+      FlexWeight: 3;
+      Label #MarkerLocationLabel {
+        FlexWeight: 0;
+        Text: "MARKER LOCATION";
+        Style: (TextColor: $C.@ColorDefaultLabel, FontSize: 10, RenderBold: true, RenderUppercase: true);
+      }
+      Label #MarkerLocation {
+        FlexWeight: 0;
+        Text: "Location";
+        Style: (VerticalAlignment: Center, FontSize: 16);
+      }
+    }
+  }
+
+  Group #Id {
+    LayoutMode: Top;
+    Anchor: (Width: 600, Left: 25, Right: 25, Top: 10);
+    FlexWeight: 0;
+    Label #MarkerIdLabel {
+      FlexWeight: 0;
+      Text: "MARKER ID";
+      Style: (TextColor: $C.@ColorDefaultLabel, FontSize: 10, RenderBold: true, RenderUppercase: true);
+    }
+    TextField #MarkerId {
+      @Anchor = ();
+      Anchor: (...@Anchor, Height: 22, Top: 0, Left: 0);
+      FlexWeight: 0;
+      Value: "MarkerId";
+      MaxLength: 100;
+      IsReadOnly: true;
+      Style: (FontSize: 16);
+    }
+  }
+
+  Group #Buttons {
+    LayoutMode: Left;
+    Anchor: (Left: 25, Right: 25, Top: 15);
+    $C.@SmallSecondaryTextButton #Teleport {
+      @Text = "Teleport";
+    }
+    $C.@SmallSecondaryTextButton #Edit {
+      @Anchor = (Left: 20);
+      @Text = "Edit";
+    }
+    $C.@SmallSecondaryTextButton #Remove {
+      @Anchor = (Left: 20);
+      @Text = "Remove";
+    }
+  }
+}

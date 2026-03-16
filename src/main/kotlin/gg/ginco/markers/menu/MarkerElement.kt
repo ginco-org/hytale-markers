@@ -41,7 +41,7 @@ class MarkerElement(
         commands: UICommandBuilder,
         events: UIEventBuilder
     ) {
-        commands.append(root, "JellyParty/MarkerElement.ui")
+        commands.append(root, "Markers/MarkerElement.ui")
 
         markerTypeLabel?.set(marker.markerType)
         commands.set("${UiUtils.getArraySelector("#$elementSelectorId", index)} #MarkerId.Value", marker.markerId!!)

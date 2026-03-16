@@ -1,0 +1,109 @@
+$C = "../Common.ui";
+
+$C.@DecoratedContainer {
+  Anchor: (Width: 850, Height: 750);
+
+  #Title {
+      $C.@Title { @Text = "Marker List"; }
+  }
+
+  Group #Content {
+    LayoutMode: Top;
+    Anchor: (Width: 600, Top: 90);
+
+    Group #Type {
+      LayoutMode: Top;
+      FlexWeight: 0;
+      Label #MarkerTypeLabel {
+        FlexWeight: 0;
+        Text: "MARKER TYPE";
+        Style: (TextColor: $C.@ColorDefault, FontSize: 14, RenderBold: true, RenderUppercase: true);
+      }
+      Label #MarkerTypeDescription {
+        Text: "The type of marker determines what this marker is used for by any plugin. For example: Spawnpoint, SpecialChest, etc.";
+        Style: (TextColor: $C.@ColorDefaultLabel, FontSize: 12);
+      }
+      $C.@TextField #MarkerType {
+        FlexWeight: 0;
+        Value: "MarkerType";
+        MaxLength: 100;
+        AutoFocus: true;
+      }
+    }
+
+    Group #Id {
+      LayoutMode: Top;
+      Anchor: (Top: 15);
+      FlexWeight: 0;
+      Label #MarkerIdLabel {
+        FlexWeight: 0;
+        Text: "MARKER ID";
+        Style: (TextColor: $C.@ColorDefault, FontSize: 14, RenderBold: true, RenderUppercase: true);
+      }
+      Label #MarkerIdDescription {
+        Text: "The unique identifier for this specific marker. An existing id will override the already existing marker.";
+        Style: (TextColor: $C.@ColorDefaultLabel, FontSize: 12);
+      }
+      $C.@TextField #MarkerId {
+        FlexWeight: 0;
+        Value: "MarkerId";
+        MaxLength: 100;
+      }
+    }
+
+    Group #Location {
+      LayoutMode: Top;
+      Anchor: (Top: 15);
+      FlexWeight: 0;
+      Label #MarkerLocationLabel {
+        FlexWeight: 0;
+        Text: "MARKER LOCATION";
+        Style: (TextColor: $C.@ColorDefault, FontSize: 14, RenderBold: true, RenderUppercase: true);
+      }
+      Label #MarkerLocationDescription {
+        Text: "The position in the world where this marker is located. The location can not be changed in this menu.";
+        Style: (TextColor: $C.@ColorDefaultLabel, FontSize: 12);
+      }
+      $C.@TextField #MarkerLocation {
+        FlexWeight: 0;
+        Value: "Marker Location";
+        IsReadOnly: true;
+      }
+    }
+
+    Group #PerfectLocation {
+      LayoutMode: Top;
+      Anchor: (Top: 15);
+      FlexWeight: 0;
+      Label #MarkerPerfectLocationLabel {
+        FlexWeight: 0;
+        Text: "PERFECT LOCATION";
+        Style: (TextColor: $C.@ColorDefault, FontSize: 14, RenderBold: true, RenderUppercase: true);
+      }
+      Label #MarkerPerfectLocationDescription {
+        Anchor: (Bottom: 5);
+        Text: "Centers this location to the standing block and rounds the pitch and yaw to the closests orientation.";
+        Style: (TextColor: $C.@ColorDefaultLabel, FontSize: 12);
+      }
+      $C.@CheckBoxWithLabel #MarkerPerfectLocation {
+        @Text = "Enable perfect location";
+        @Checked = true;
+      }
+    }
+
+    Group #Buttons {
+      LayoutMode: Left;
+      Anchor: (Top: 30);
+
+      $C.@TextButton #Save {
+        @Anchor = (Width: 130);
+        @Text = "Save";
+      }
+
+      $C.@CancelTextButton #Cancel {
+        @Anchor = (Width: 130, Left: 20);
+        @Text = "back";
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+$C = "../Common.ui";
+
+$C.@DecoratedContainer {
+  Anchor: (Width: 850, Height: 750);
+
+  #Title {
+      $C.@Title { @Text = "Marker List"; }
+  }
+
+  Group #Content {
+    LayoutMode: TopScrolling;
+    ScrollbarStyle: $C.@DefaultScrollbarStyle;
+    Anchor: (Top: 30);
+    Group #MarkerList {
+      LayoutMode: MiddleCenter;
+      Padding: (Vertical: 40);
+    }
+  }
+}
