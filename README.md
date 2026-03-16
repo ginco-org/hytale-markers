@@ -3,6 +3,16 @@ Adds a general-purpose location storage to Hytale worlds for plugin development.
 
 They are used to define game data in the world, from player and entity spawnpoints to any other localized object.
 
+## Installation
+
+In `build.gradle.kts`:
+
+```kotlin
+dependencies {
+    implementation("gg.ginco.markers:hytale-markers:1.0.0")
+}
+```
+
 ## How do you set them up?
 You can set them up through the /marker command. You can also use the aliases: markers, m
 Here is the marker command structure:

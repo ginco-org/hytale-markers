@@ -1,7 +1,10 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
     kotlin("jvm") version "2.3.10"
     id("com.gradleup.shadow") version "9.3.2"
     id("com.google.devtools.ksp") version "2.3.6"
+    id("com.vanniktech.maven.publish") version "0.30.0"
 }
 
 kotlin {
@@ -28,8 +31,34 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 }
 
 
-group = "gg.ginco.markers"
-version = "1.0-SNAPSHOT"
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    signAllPublications()
+
+    pom {
+        name = "hytale-markers"
+        description = "General-purpose location marker storage for Hytale plugin development"
+        url = "https://github.com/ginco-org/hytale-markers"
+        licenses {
+            license {
+                name = "Apache-2.0"
+                url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+            }
+        }
+        developers {
+            developer {
+                id = "ginco"
+                name = "GINCo"
+                url = "https://ginco.gg"
+            }
+        }
+        scm {
+            connection = "scm:git:git://github.com/ginco-org/hytale-markers.git"
+            developerConnection = "scm:git:ssh://github.com/ginco-org/hytale-markers.git"
+            url = "https://github.com/ginco-org/hytale-markers"
+        }
+    }
+}
 
 dependencies {
     val server_version: String by project
