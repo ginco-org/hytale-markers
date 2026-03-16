@@ -69,7 +69,7 @@ dependencies {
 
     implementation("dev.jonrapp:hytale-reactiveui:1.0")
 
-    implementation("gg.ginco:hytale-codec-annotations:1.0.6")
-    implementation("gg.ginco:hytale-codec-runtime:1.0.6")
-    ksp("gg.ginco:hytale-codec-processor:1.0.6")
+    implementation("gg.ginco:hytale-codec-annotations:1.0.7")
+    implementation("gg.ginco:hytale-codec-runtime:1.0.7")
+    ksp("gg.ginco:hytale-codec-processor:1.0.7")
 }
