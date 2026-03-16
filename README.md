@@ -9,7 +9,7 @@ In `build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation("gg.ginco.markers:hytale-markers:1.0.0")
+    implementation("gg.ginco:hytale-markers:1.0.0")
 }
 ```
 
