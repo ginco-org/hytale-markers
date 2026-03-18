@@ -34,7 +34,9 @@ class MarkerCreateCommand(private val markerRegistrar: LocationMarkerSystemsRegi
         val markerId = context.get(markerId)
 
         // Clone the transform, as it mutable and it does mutate as the player moves.
-        val currentTransform = playerRef.transform.clone()
+        val currentTransform = playerRef.transform.clone().apply {
+            rotation = playerRef.headRotation
+        }
 
         if (markerType != null && markerId != null) {
             world.chunkStore.store.getResource(markerRegistrar.markerResourceType).addMarker(
