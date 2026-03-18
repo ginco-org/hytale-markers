@@ -35,7 +35,7 @@ class MarkerCreateCommand(private val markerRegistrar: LocationMarkerSystemsRegi
 
         // Clone the transform, as it mutable and it does mutate as the player moves.
         val currentTransform = playerRef.transform.clone().apply {
-            rotation = playerRef.headRotation
+            rotation = playerRef.headRotation.clone()
         }
 
         if (markerType != null && markerId != null) {
