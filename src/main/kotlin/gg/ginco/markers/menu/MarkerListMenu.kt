@@ -32,7 +32,7 @@ class MarkerListMenu(
 
         markers.sortedBy { it.location?.position?.distanceSquaredTo(playerRef.transform.position) }
             .forEachIndexed { index, marker ->
-                val element = MarkerElement(marker, index, markerRegistrar.markerResourceType, this)
+                val element = MarkerElement(marker, index, markerRegistrar, this)
                 element.create("#MarkerList", index, commands, events)
             }
     }
