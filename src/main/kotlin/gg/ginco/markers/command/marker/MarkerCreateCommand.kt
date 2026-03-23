@@ -6,10 +6,12 @@ import com.hypixel.hytale.server.core.Message
 import com.hypixel.hytale.server.core.command.system.CommandContext
 import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractPlayerCommand
+import com.hypixel.hytale.server.core.entity.entities.Player
 import com.hypixel.hytale.server.core.universe.PlayerRef
 import com.hypixel.hytale.server.core.universe.world.World
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore
 import gg.ginco.markers.LocationMarkerSystemsRegistrar
+import gg.ginco.markers.menu.MarkerEditorMenu
 import gg.ginco.markers.resource.LocationMarker
 
 /**
@@ -45,9 +47,8 @@ class MarkerCreateCommand(private val markerRegistrar: LocationMarkerSystemsRegi
 
             playerRef.sendMessage(Message.translation("ginco.general.marker.set"))
         } else {
-            val marker = LocationMarker(transform = currentTransform, "")
-
-            // TODO: Open a marker editor and add to world once save is clicked.
+            val player = store.getComponent(ref, Player.getComponentType()) ?: return
+            player.pageManager.openCustomPage(ref, store, MarkerEditorMenu(playerRef, null, markerRegistrar))
         }
     }
 

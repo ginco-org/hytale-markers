@@ -25,7 +25,8 @@ $C.@DecoratedContainer {
       }
       $C.@TextField #MarkerType {
         FlexWeight: 0;
-        Value: "MarkerType";
+        Value: "";
+        PlaceholderText: "Marker Type";
         MaxLength: 100;
         AutoFocus: true;
       }
@@ -46,7 +47,8 @@ $C.@DecoratedContainer {
       }
       $C.@TextField #MarkerId {
         FlexWeight: 0;
-        Value: "MarkerId";
+        Value: "";
+        PlaceholderText: "Marker Id";
         MaxLength: 100;
       }
     }
@@ -87,7 +89,7 @@ $C.@DecoratedContainer {
       }
       $C.@CheckBoxWithLabel #MarkerPerfectLocation {
         @Text = "Enable perfect location";
-        @Checked = true;
+        @Checked = false;
       }
     }
 
@@ -102,7 +104,7 @@ $C.@DecoratedContainer {
 
       $C.@CancelTextButton #Cancel {
         @Anchor = (Width: 130, Left: 20);
-        @Text = "back";
+        @Text = "Cancel";
       }
     }
   }

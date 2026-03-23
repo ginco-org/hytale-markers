@@ -1,0 +1,46 @@
+{
+  "TranslationProperties": {
+    "Name": "Marker Editor",
+    "Description": "Allows you to edit and move markers"
+  },
+  "Icon": "Icons/Items/Markers/MarkerEditor.png",
+  "Categories": [
+    "Tool.BuilderToolSecondPage"
+  ],
+  "Model": "Items/Tools/Brush/Brush.blockymodel",
+  "Texture": "Items/Tools/Brush/Brush_Texture.png",
+  "MaxStack": 1,
+  "PlayerAnimationsId": "Item",
+  "InteractionConfig": {
+    "DebugOutlines": true,
+    "UseDistance": {
+      "Adventure": 128,
+      "Creative": 128
+    },
+    "AllEntities": true
+  },
+  "Quality": "Tool",
+  "Interactions": {
+    "Secondary": {
+      "Interactions": [
+        {
+          "Type": "EditLocationMarker"
+        }
+      ]
+    },
+    "Primary": {
+      "Interactions": [
+        {
+          "Type": "MoveLocationMarker"
+        }
+      ]
+    },
+    "Pick": {
+      "Interactions": [
+        {
+          "Type": "RotateLocationMarker"
+        }
+      ]
+    }
+  }
+}
