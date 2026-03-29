@@ -13,6 +13,7 @@ import com.hypixel.hytale.protocol.Vector3f
 import com.hypixel.hytale.protocol.packets.player.ClearDebugShapes
 import com.hypixel.hytale.protocol.packets.player.DisplayDebug
 import com.hypixel.hytale.server.core.entity.entities.Player
+import com.hypixel.hytale.server.core.modules.debug.DebugUtils
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent
 import com.hypixel.hytale.server.core.universe.PlayerRef
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore
@@ -122,7 +123,7 @@ class MarkerVisibilitySystem(
             cubeMatrix.asFloatData(),
             YELLOW_COLOR,
             DISPLAY_TIME,
-            false,
+            DebugUtils.FLAG_NONE.toByte(),
             null,
             0.8f
         )
@@ -150,7 +151,7 @@ class MarkerVisibilitySystem(
             cylinderMatrix.asFloatData(),
             YELLOW_COLOR,
             DISPLAY_TIME,
-            false,
+            DebugUtils.FLAG_NONE.toByte(),
             null,
             0.8f
         )
@@ -165,7 +166,7 @@ class MarkerVisibilitySystem(
             arrowMatrix.asFloatData(),
             YELLOW_COLOR,
             DISPLAY_TIME,
-            false,
+            DebugUtils.FLAG_NONE.toByte(),
             null,
             0.8f
         )
