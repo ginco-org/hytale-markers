@@ -35,6 +35,7 @@ class MarkerEditorMenu(
         markerId = UUID.randomUUID().toString()
     }
 
+    private var perfectLocationMarked: Boolean = false
     private val dataElements: MutableList<Pair<String?, String?>> =
         markerClone.data?.toList()?.toMutableList() ?: mutableListOf()
 
@@ -45,6 +46,8 @@ class MarkerEditorMenu(
         store: Store<EntityStore>
     ) {
         commands.append("Markers/MarkerEditor.ui")
+
+        commands.set("#MarkerPerfectLocation #CheckBox.Value", perfectLocationMarked)
 
         markerClone.markerId?.let { commands.set("#MarkerId.Value", it) }
         markerClone.markerType?.let { commands.set("#MarkerType.Value", it) }
@@ -164,6 +167,8 @@ class MarkerEditorMenu(
         if (perfectLocation ?: false) markerClone.location?.let {
             markerClone.location = it.perfectLocation()
         }
+
+        perfectLocationMarked = perfectLocation == true
 
         extractData(eventContext).let {
             markerClone.data = it
