@@ -1,10 +1,10 @@
 $C = "../Common.ui";
 
 $C.@DecoratedContainer {
-  Anchor: (Width: 850, Height: 750);
+  Anchor: (Width: 850, Height: 850);
 
   #Title {
-      $C.@Title { @Text = "Marker List"; }
+    $C.@Title { @Text = "Marker List"; }
   }
 
   Group #Content {
@@ -28,10 +28,8 @@ $C.@DecoratedContainer {
         Value: "";
         PlaceholderText: "Marker Type";
         MaxLength: 100;
-        AutoFocus: true;
       }
     }
-
     Group #Id {
       LayoutMode: Top;
       Anchor: (Top: 15);
@@ -52,7 +50,6 @@ $C.@DecoratedContainer {
         MaxLength: 100;
       }
     }
-
     Group #Location {
       LayoutMode: Top;
       Anchor: (Top: 15);
@@ -72,7 +69,6 @@ $C.@DecoratedContainer {
         IsReadOnly: true;
       }
     }
-
     Group #PerfectLocation {
       LayoutMode: Top;
       Anchor: (Top: 15);
@@ -89,7 +85,24 @@ $C.@DecoratedContainer {
       }
       $C.@CheckBoxWithLabel #MarkerPerfectLocation {
         @Text = "Enable perfect location";
-        @Checked = false;
+      }
+    }
+    Group #Data {
+      LayoutMode: Top;
+      Anchor: (Top: 15);
+      Label #MarkerDataLabel {
+        FlexWeight: 0;
+        Text: "MARKER DATA";
+        Style: (TextColor: $C.@ColorDefault, FontSize: 14, RenderBold: true, RenderUppercase: true);
+      }
+      Label #MarkerDataDescription {
+        Anchor: (Bottom: 5);
+        Text: "All the data stored inside this specific marker.";
+        Style: (TextColor: $C.@ColorDefaultLabel, FontSize: 12);
+      }
+      $C.@SimpleContainer #MarkerData {
+        LayoutMode: Top;
+        Anchor: (Width: 600, Height: 250);
       }
     }
 
@@ -105,6 +118,11 @@ $C.@DecoratedContainer {
       $C.@CancelTextButton #Cancel {
         @Anchor = (Width: 130, Left: 20);
         @Text = "Cancel";
+      }
+
+      $C.@TextButton #AddData {
+        @Anchor = (Left: 160, Width: 160);
+        @Text = "Add Data";
       }
     }
   }

@@ -1,0 +1,34 @@
+$C = "../Common.ui";
+
+Group #Content {
+  LayoutMode: Top;
+  Anchor: (Width: 580, Top: 15);
+  Group #Elements {
+    LayoutMode: CenterMiddle;
+    $C.@TextField #MarkerDataKey {
+      @Anchor = (Width: 260);
+      FlexWeight: 0;
+      MaxLength: 100;
+      PlaceholderText: "Data Key";
+      Value: "";
+    }
+    Group #Separator {
+      Anchor: (Width: 15);
+      FlexWeight: 0;
+    }
+    $C.@TextField #MarkerDataValue {
+      @Anchor = (Width: 260);
+      FlexWeight: 0;
+      Value: "";
+      PlaceholderText: "Data Value";
+    }
+    Group #Separator2 {
+      Anchor: (Width: 15);
+      FlexWeight: 0;
+    }
+    $C.@CancelTextButton #Delete {
+      Anchor: (Width: 30, Height: 30);
+      Text: "-";
+    }
+  }
+}
