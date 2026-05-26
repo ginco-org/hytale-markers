@@ -30,7 +30,7 @@ class MarkerListMenu(
 
         val markers = world.chunkStore.store.getResource(markerRegistrar.markerResourceType).getMarkers()
 
-        markers.sortedBy { it.location?.position?.distanceSquaredTo(playerRef.transform.position) }
+        markers.sortedBy { it.location?.position?.distanceSquared(playerRef.transform.position) }
             .forEachIndexed { index, marker ->
                 val element = MarkerElement(marker, index, markerRegistrar, this)
                 element.create("#MarkerList", index, commands, events)

@@ -60,6 +60,7 @@ class MarkerElement(
             events,
             EventBinding.action("remove-${index}").onEvent {
                 val player = it.store.getComponent(it.ref, Player.getComponentType()) ?: return@onEvent
+                val playerRef = it.store.getComponent(it.ref, PlayerRef.getComponentType()) ?: return@onEvent
                 val world = player.world ?: return@onEvent
 
                 val markerId = marker.markerId ?: return@onEvent
@@ -67,7 +68,7 @@ class MarkerElement(
                 world.chunkStore.store.getResource(markerRegistrar.markerResourceType).removeMarker(markerId)
                 player.pageManager.setPage(it.ref, it.store, Page.None)
 
-                player.sendMessage(Message.translation("ginco.general.marker.removed").apply {
+                playerRef.sendMessage(Message.translation("ginco.general.marker.removed").apply {
                     param("markerId", markerId)
                 })
             })
@@ -78,12 +79,13 @@ class MarkerElement(
             events,
             EventBinding.action("teleport-${index}").onEvent {
                 val player = it.store.getComponent(it.ref, Player.getComponentType()) ?: return@onEvent
+                val playerRef = it.store.getComponent(it.ref, PlayerRef.getComponentType()) ?: return@onEvent
                 val world = player.world ?: return@onEvent
                 val markerLocation = marker.location
 
                 world.execute {
                     if (markerLocation == null) {
-                        player.sendMessage(Message.translation("ginco.general.marker.no_location"))
+                        playerRef.sendMessage(Message.translation("ginco.general.marker.no_location"))
                         return@execute
                     }
 

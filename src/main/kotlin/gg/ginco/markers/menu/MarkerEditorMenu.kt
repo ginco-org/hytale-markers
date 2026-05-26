@@ -19,6 +19,8 @@ import dev.jonrapp.hytaleReactiveUi.pages.ReactiveUiPage
 import gg.ginco.markers.LocationMarkerSystemsRegistrar
 import gg.ginco.markers.ext.toPrettyString
 import gg.ginco.markers.resource.LocationMarker
+import com.hypixel.hytale.math.vector.Rotation3f
+import org.joml.Vector3d
 import java.util.*
 
 /** Lists all markers in the world, sorted by distance. */
@@ -30,7 +32,7 @@ class MarkerEditorMenu(
 
     val markerClone = marker?.clone() ?: LocationMarker().apply {
         location = player.transform.clone().apply {
-            rotation = player.headRotation.clone()
+            setRotation(Rotation3f(player.headRotation))
         }
         markerId = UUID.randomUUID().toString()
     }
@@ -80,8 +82,7 @@ class MarkerEditorMenu(
                     dataElements += Pair(null, null)
                     rebuild()
                 } else {
-                    val player = it.store.getComponent(it.ref, Player.getComponentType()) ?: return@onEvent
-                    player.sendMessage(Message.translation("ginco.general.marker.complete_pair"))
+                    playerRef.sendMessage(Message.translation("ginco.general.marker.complete_pair"))
                     sendUpdate()
                 }
             })
@@ -108,7 +109,7 @@ class MarkerEditorMenu(
                     }
 
                     world.chunkStore.store.getResource(markerRegistrar.markerResourceType).addMarker(markerClone)
-                    player.sendMessage(Message.translation("ginco.general.marker.saved"))
+                    playerRef.sendMessage(Message.translation("ginco.general.marker.saved"))
 
                     player.pageManager.openCustomPage(
                         eventContext.ref,
@@ -157,7 +158,7 @@ class MarkerEditorMenu(
         markerClone.markerType = inputMarkerType
 
         if (checkFields && inputMarkerType.isNullOrBlank()) {
-            player.sendMessage(Message.translation("ginco.general.marker.empty_fields"))
+            playerRef.sendMessage(Message.translation("ginco.general.marker.empty_fields"))
             player.pageManager.setPage(eventContext.ref, eventContext.store, Page.None)
 
             return false
@@ -200,10 +201,11 @@ class MarkerEditorMenu(
 
     /** Horizontally centers the transform to the block below. */
     private fun Transform.perfectLocation(): Transform = clone().apply {
-        position = position.clone().apply {
-            x = kotlin.math.floor(x) + 0.5
-            z = kotlin.math.floor(z) + 0.5
-        }
+        setPosition(Vector3d(
+            kotlin.math.floor(position.x) + 0.5,
+            position.y,
+            kotlin.math.floor(position.z) + 0.5
+        ))
     }
 
     override fun getRootContentSelector(): String = "#Content"

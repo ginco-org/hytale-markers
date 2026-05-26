@@ -5,11 +5,12 @@ import com.hypixel.hytale.component.CommandBuffer
 import com.hypixel.hytale.component.Store
 import com.hypixel.hytale.component.query.Query
 import com.hypixel.hytale.component.system.tick.DelayedEntitySystem
-import com.hypixel.hytale.math.matrix.Matrix4d
+import com.hypixel.hytale.math.matrix.Matrix4dUtil
 import com.hypixel.hytale.math.util.ChunkUtil
 import com.hypixel.hytale.math.vector.Transform
 import com.hypixel.hytale.protocol.DebugShape
-import com.hypixel.hytale.protocol.Vector3f
+import org.joml.Matrix4d
+import org.joml.Vector3f
 import com.hypixel.hytale.protocol.packets.player.ClearDebugShapes
 import com.hypixel.hytale.protocol.packets.player.DisplayDebug
 import com.hypixel.hytale.server.core.entity.entities.Player
@@ -94,7 +95,7 @@ class MarkerVisibilitySystem(
         // Append the clear shapes packet first, to disregard old visuals and then only
         // send visuals for markers at 120 blocks or fewer.
         val allPackets = listOf(CLEAR_SHAPES_PACKET).plus(packetsToSend.flatMap { (markerId, packets) ->
-            val distance = markerId.location?.position?.distanceSquaredTo(playerRef.transform.position)
+            val distance = markerId.location?.position?.distanceSquared(playerRef.transform.position)
                 ?: return@flatMap emptyList()
             if (distance >= 120 * 120) return@flatMap emptyList()
 
@@ -112,15 +113,14 @@ class MarkerVisibilitySystem(
     private fun Transform.getPacketList(): List<DisplayDebug> {
         val packetList = mutableListOf<DisplayDebug>()
 
-        val cubeMatrix = Matrix4d().apply {
-            identity()
-            translate(position.x, position.y + 0.26, position.z)
-            scale(0.5, 0.5, 0.5)
-        }
+        val cubeMatrix = Matrix4d()
+            .identity()
+            .translate(position.x, position.y + 0.26, position.z)
+            .scale(0.5, 0.5, 0.5)
 
         packetList += DisplayDebug(
             DebugShape.Cube,
-            cubeMatrix.asFloatData(),
+            Matrix4dUtil.asFloatData(cubeMatrix),
             YELLOW_COLOR,
             DISPLAY_TIME,
             DebugUtils.FLAG_NONE.toByte(),
@@ -128,27 +128,23 @@ class MarkerVisibilitySystem(
             0.8f
         )
 
-        val lookYaw = rotation.yaw
-        val lookPitch = rotation.pitch
+        val lookYaw = rotation.yaw()
+        val lookPitch = rotation.pitch()
 
-        val matrix = Matrix4d().apply {
-            val tmp = Matrix4d()
-
-            identity()
-            translate(position.x, position.y + 2.0, position.z)
-            rotateAxis((-lookYaw).toDouble(), 0.0, 1.0, 0.0, tmp)
-            rotateAxis((Math.PI / 2.0) - lookPitch.toDouble(), 1.0, 0.0, 0.0, tmp)
-        }
+        val matrix = Matrix4d()
+            .identity()
+            .translate(position.x, position.y + 2.0, position.z)
+            .rotate((-lookYaw).toDouble(), 0.0, 1.0, 0.0)
+            .rotate((Math.PI / 2.0) - lookPitch.toDouble(), 1.0, 0.0, 0.0)
 
         // Arrow Cylinder
-        val cylinderMatrix = Matrix4d(matrix).apply {
-            translate(0.0, 0.7 * 0.5, 0.0)
-            scale(0.1, 0.7, 0.1)
-        }
+        val cylinderMatrix = Matrix4d(matrix)
+            .translate(0.0, 0.7 * 0.5, 0.0)
+            .scale(0.1, 0.7, 0.1)
 
         packetList += DisplayDebug(
             DebugShape.Cylinder,
-            cylinderMatrix.asFloatData(),
+            Matrix4dUtil.asFloatData(cylinderMatrix),
             YELLOW_COLOR,
             DISPLAY_TIME,
             DebugUtils.FLAG_NONE.toByte(),
@@ -156,14 +152,13 @@ class MarkerVisibilitySystem(
             0.8f
         )
 
-        val arrowMatrix = Matrix4d(matrix).apply {
-            translate(0.0, 0.7 + 0.15, 0.0)
-            scale(0.3, 0.3, 0.3)
-        }
+        val arrowMatrix = Matrix4d(matrix)
+            .translate(0.0, 0.7 + 0.15, 0.0)
+            .scale(0.3, 0.3, 0.3)
 
         packetList += DisplayDebug(
             DebugShape.Cone,
-            arrowMatrix.asFloatData(),
+            Matrix4dUtil.asFloatData(arrowMatrix),
             YELLOW_COLOR,
             DISPLAY_TIME,
             DebugUtils.FLAG_NONE.toByte(),

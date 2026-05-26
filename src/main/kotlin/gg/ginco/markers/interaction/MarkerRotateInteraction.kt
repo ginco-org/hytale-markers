@@ -7,6 +7,7 @@ import com.hypixel.hytale.server.core.modules.interaction.interaction.CooldownHa
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.SimpleInstantInteraction
 import com.hypixel.hytale.server.core.universe.PlayerRef
 import gg.ginco.markers.LocationMarkerSystemsRegistrar
+import com.hypixel.hytale.math.vector.Rotation3f
 
 class MarkerRotateInteraction(private val markerRegistrar: LocationMarkerSystemsRegistrar) :
     SimpleInstantInteraction() {
@@ -30,7 +31,7 @@ class MarkerRotateInteraction(private val markerRegistrar: LocationMarkerSystems
             val markerToMove = world.chunkStore.store.getResource(markerRegistrar.markerResourceType).getMarker(selectedMarker)
 
             markerToMove?.location?.apply {
-                rotation = playerRef.headRotation.clone()
+                setRotation(Rotation3f(playerRef.headRotation))
             }
         }
     }

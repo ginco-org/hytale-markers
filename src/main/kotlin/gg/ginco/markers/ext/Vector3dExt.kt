@@ -1,6 +1,6 @@
 package gg.ginco.markers.ext
 
-import com.hypixel.hytale.math.vector.Vector3d
+import org.joml.Vector3d
 
 /** Returns a pretty representation of a Vector3d. */
 fun Vector3d.toPrettyString(): String {

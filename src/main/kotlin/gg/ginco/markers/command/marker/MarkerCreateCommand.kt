@@ -13,6 +13,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore
 import gg.ginco.markers.LocationMarkerSystemsRegistrar
 import gg.ginco.markers.menu.MarkerEditorMenu
 import gg.ginco.markers.resource.LocationMarker
+import com.hypixel.hytale.math.vector.Rotation3f
 
 /**
  * Creates a marker in the player's location with the specified id and type.
@@ -37,7 +38,7 @@ class MarkerCreateCommand(private val markerRegistrar: LocationMarkerSystemsRegi
 
         // Clone the transform, as it mutable and it does mutate as the player moves.
         val currentTransform = playerRef.transform.clone().apply {
-            rotation = playerRef.headRotation.clone()
+            setRotation(Rotation3f(playerRef.headRotation))
         }
 
         if (markerType != null && markerId != null) {

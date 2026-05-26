@@ -1,7 +1,7 @@
 package gg.ginco.markers.interaction
 
 import com.hypixel.hytale.component.CommandBuffer
-import com.hypixel.hytale.math.vector.Vector3i
+import org.joml.Vector3i
 import com.hypixel.hytale.protocol.InteractionType
 import com.hypixel.hytale.server.core.entity.InteractionContext
 import com.hypixel.hytale.server.core.entity.entities.Player
@@ -29,7 +29,7 @@ class MarkerEditInteraction(private val markerRegistrar: LocationMarkerSystemsRe
         val player = commandBuffer.getComponent(ref, Player.getComponentType()) ?: return
 
         val closestMarker = world.chunkStore.store.getResource(markerRegistrar.markerResourceType).getMarkers()
-            .minByOrNull { it.location?.position?.distanceSquaredTo(pos) ?: Double.MAX_VALUE } ?: return
+            .minByOrNull { it.location?.position?.distanceSquared(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()) ?: Double.MAX_VALUE } ?: return
 
         val playerRef = commandBuffer.getComponent(ref, PlayerRef.getComponentType()) ?: return
 

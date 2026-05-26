@@ -2,9 +2,9 @@ package gg.ginco.markers.interaction
 
 import com.hypixel.hytale.component.CommandBuffer
 import com.hypixel.hytale.math.vector.Transform
-import com.hypixel.hytale.math.vector.Vector3d
-import com.hypixel.hytale.math.vector.Vector3f
-import com.hypixel.hytale.math.vector.Vector3i
+import org.joml.Vector3d
+import com.hypixel.hytale.math.vector.Rotation3f
+import org.joml.Vector3i
 import com.hypixel.hytale.protocol.InteractionType
 import com.hypixel.hytale.server.core.entity.InteractionContext
 import com.hypixel.hytale.server.core.inventory.ItemStack
@@ -37,7 +37,7 @@ class MarketMoveInteraction(private val markerRegistrar: LocationMarkerSystemsRe
 
             if (selectedMarker == null) {
                 val closestMarker = world.chunkStore.store.getResource(markerRegistrar.markerResourceType).getMarkers()
-                    .minByOrNull { it.location?.position?.distanceSquaredTo(pos) ?: Double.MAX_VALUE }
+                    .minByOrNull { it.location?.position?.distanceSquared(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()) ?: Double.MAX_VALUE }
 
                 store.addComponent(
                     ref,
@@ -54,7 +54,7 @@ class MarketMoveInteraction(private val markerRegistrar: LocationMarkerSystemsRe
 
             val playerPosition = transformComponent.position
             val headRotation = headRotationComponent.rotation
-            val direction = Transform.getDirection(headRotation.pitch, headRotation.yaw)
+            val direction = Transform.getDirection(headRotation.pitch(), headRotation.yaw())
 
             val lookTarget = TargetUtil.getTargetLocation(ref, 15.0, store)
 
@@ -62,7 +62,7 @@ class MarketMoveInteraction(private val markerRegistrar: LocationMarkerSystemsRe
             if (lookTarget != null) {
                 newPosition = lookTarget
             } else {
-                val aheadPosition = playerPosition.clone().add(direction.clone().scale(15.0))
+                val aheadPosition = playerPosition.add(direction.mul(15.0, Vector3d()), Vector3d())
                 val world = store.getExternalData().world
                 val groundTarget = TargetUtil.getTargetBlock(
                     world,
@@ -92,7 +92,7 @@ class MarketMoveInteraction(private val markerRegistrar: LocationMarkerSystemsRe
 
             markerToMove.location = Transform(
                 newPosition,
-                oldLocation?.rotation ?: Vector3f(Float.NaN, Float.NaN, Float.NaN)
+                oldLocation?.rotation ?: Rotation3f(Float.NaN, Float.NaN, Float.NaN)
             )
 
             store.removeComponent(ref, markerRegistrar.selectedMarkerComponentType)
